@@ -1,0 +1,16 @@
+{
+  "name": "mangoshare",
+  "version": "1.0.0",
+  "dependencies": {
+    "express": "~4.13.1",
+    "ejs": "~2.4.1"
+  },
+  "main": "main.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}

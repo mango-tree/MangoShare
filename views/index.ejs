@@ -1,0 +1,80 @@
+<html>
+  <head>
+  <title><%= title %></title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.8/semantic.min.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script src="https://code.jquery.com/jquery-3.2.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.8/semantic.min.js"></script>
+  <script>
+  $(document)
+    .ready(function() {
+
+      // fix main menu to page on passing
+      $('.main.menu').visibility({
+        type: 'fixed'
+      });
+      $('.overlay').visibility({
+        type: 'fixed',
+        offset: 80
+      });
+
+      // lazy load images
+      $('.image').visibility({
+        type: 'image',
+        transition: 'vertical flip in',
+        duration: 500
+      });
+
+      // show dropdown on hover
+      $('.main.menu  .ui.dropdown').dropdown({
+        on: 'hover'
+      });
+    })
+  ;
+  </script>
+
+  </head>
+  <body>
+    <div class="ui main text container">
+      <h1>MangoShare</h1>
+      <p>Mini file-sharing server</p>
+    </div>
+    <!--ui main text container-->
+    <div class="ui borderless main menu">
+        <div class="ui text container">
+          <div href="#" class="header item">
+            MangoShare
+          </div>
+          <a href="#" class="item">Blog</a>
+          <a href="#" class="item">Articles</a>
+          <a href="#" class="ui right floated dropdown item">
+            Dropdown <i class="dropdown icon"></i>
+            <div class="menu">
+              <div class="item">Link Item</div>
+              <div class="item">Link Item</div>
+              <div class="divider"></div>
+              <div class="header">Header Item</div>
+              <div class="item">
+                <i class="dropdown icon"></i>
+                Sub Menu
+                <div class="menu">
+                  <div class="item">Link Item</div>
+                  <div class="item">Link Item</div>
+                </div>
+              </div>
+              <div class="item">Link Item</div>
+            </div>
+          </a>
+        </div>
+        <!--ui text container-->
+    </div>
+    <!--ui borderless main menu-->
+    <div class="ui text container">
+        <% for(var i=0; i<length; i++){ %>
+            <div class="ui segments">
+                <%= "LOOP" + item[i] %>
+            </div>
+        <% } %>
+    </div>
+  </body>
+</html>
