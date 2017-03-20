@@ -2,9 +2,10 @@
   <head>
   <title><%= title %></title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.8/semantic.min.css">
-    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
     <script src="https://code.jquery.com/jquery-3.2.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.8/semantic.min.js"></script>
+    <script src="/js/common.js"></script>
   <script>
   $(document)
     .ready(function() {
@@ -70,9 +71,38 @@
     </div>
     <!--ui borderless main menu-->
     <div class="ui text container">
-        <% for(var i=0; i<length; i++){ %>
-            <div class="ui segments">
-                <%= "LOOP" + item[i] %>
+    <!--file_menu-->
+            <div class="ui raised horizontal segments">
+                <div class="ui segment file_icon">
+                    <i class="folder icon"></i>
+                </div>
+                <div class="ui segment file_name">
+                    File name
+                </div>
+                <div class="ui segment access_date">
+                    Access Date
+                </div>
+                <div class="ui segment file_size">
+                    File Size
+                </div>
+            </div>
+    <!--file menu end-->
+        <% for(var i=0; i<item.length; i++){ %>
+            <div id="segment_<%= i %>" class="ui raised horizontal segments">
+                <div class="ui segment file_icon">
+                    <i class="folder icon"></i>
+                </div>
+                <div class="ui segment file_name">
+                    <a href="./<%= item[i] %>">
+                    <%= item[i] %>
+                    </a>
+                </div>
+                <div class="ui segment access_date">
+                    2017.03.01
+                </div>
+                <div class="ui segment file_size">
+                    File Size
+                </div>
             </div>
         <% } %>
     </div>

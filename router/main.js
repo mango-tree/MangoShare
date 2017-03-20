@@ -2,6 +2,7 @@ var fs = require('fs');
 var dir = require('node-dir');
 //var Promise = require('promise');
 var Promise = require('bluebird');
+var url = require('url');
 //var ini = require('ini');
 
 
@@ -14,27 +15,61 @@ module.exports = function(app, fs)
                 else fulfill(items);
             });
         });
+    }
 
-        fs.readdir(path, function(err, items) {
-            console.log(items);
+    function isDirectory(path, isFile){
+        return new Promise(function(fulfill, reject){
+            fs.stat(path, function(err, stats) {
+                isFile=stats.isDirectory();
+                if (err) reject(err);
+                else fulfill(isFile);
+            });
+        });
+    }
+    
+    function serveFile(path, isSucceed){
+        return new Promise(function(fulfill, reject){
 
-            for (var i=0; i<items.length; i++) {
-                console.log(items[i]);
-            }
+                if (err) reject(err);
+                else fulfill(isFile);
         });
     }
 
     var callback;
     app.get('/',function(req,res){
         var path = './';
-        var items;
-        Promise.promisifyAll(listFiles);
-        fs.readdir(path, function(err, items) {
-            res.render('index', {
-                title: "MangoShare",
-                item: items,
-                length: 100
-            })
+        listFiles(path).then(function(items){
+            return res.render('index', {
+                    title: "MangoShare",
+                    item: items,
+                })
+        });
+    });
+    app.get('/files/', function(req,res){
+        var path = './';
+        listFiles(path).then(function(items){
+            return res.render('index', {
+                    title: "MangoShare",
+                    item: items,
+                })
+        });
+    });
+
+    app.get('/files/*',function(req,res){
+        // /files/first/second/... -> need to split '/files/'
+        var url = req.url.substr(7)
+        var path = './'+url;
+        isDirectory(path).then(function(isDir){
+            if (isDir === false){
+                serveFile()
+            } else {
+                listFiles(path).then(function(items){
+                    return res.render('index', {
+                            title: "MangoShare",
+                            item: items,
+                        })
+                });
+            }
         });
     });
 

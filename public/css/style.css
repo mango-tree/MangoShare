@@ -1,6 +1,10 @@
 body {
   background-color: #FFFFFF;
 }
+a{
+  text-decoration: none !important;
+  color: black;
+}
 .main.container {
   margin-top: 2em;
 }
@@ -45,6 +49,20 @@ margin: 2em 2em 2em -4em;
 margin: 2em -4em 2em 2em;
 }
 
+.ui.raised.horizontal.segments {
+    min-height:3em;
+}
+
+.ui.segment.file_icon{
+    width: 3%;
+}
+.ui.segment.file_name{
+    width: 50%;
+}
+.ui.segment.access_date{
+    width: 10%px;
+    float: right;
+}
 .ui.footer.segment {
 margin: 5em 0em 0em;
 padding: 5em 0em;
