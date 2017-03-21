@@ -50,18 +50,24 @@ margin: 2em -4em 2em 2em;
 }
 
 .ui.raised.horizontal.segments {
-    min-height:3em;
+    min-height: 3em;
 }
 
 .ui.segment.file_icon{
     width: 3%;
+    font-size: 15;
 }
 .ui.segment.file_name{
+    font-size: 15;
     width: 50%;
 }
 .ui.segment.access_date{
     width: 10%px;
     float: right;
+    font-size: 15;
+}
+.ui.segment.file_size{
+    font-size: 15;
 }
 .ui.footer.segment {
 margin: 5em 0em 0em;
