@@ -1,8 +1,8 @@
 var fs = require('fs');
 var dir = require('node-dir');
-//var Promise = require('promise');
 var Promise = require('bluebird');
 var url = require('url');
+var send = require('send');
 //var ini = require('ini');
 
 
@@ -19,19 +19,36 @@ module.exports = function(app, fs)
 
     function isDirectory(path, isFile){
         return new Promise(function(fulfill, reject){
-            fs.stat(path, function(err, stats) {
-                isFile=stats.isDirectory();
-                if (err) reject(err);
-                else fulfill(isFile);
-            });
+            try{
+                removeSlashPath=path.substring(0,path.length-1);
+                var stat = fs.statSync(removeSlashPath);
+            } catch (err){
+                if (err.code === 'ENOTDIR') {
+                    isFile=false;
+                    fulfill(isFile);
+                } else {
+                    reject(err)
+                }
+            }
+            if (stat.isFile()){
+                isFile=true;
+                fulfill(isFile);
+            } else{
+                isFile=false;
+                fulfill(isFile);
+            }
+
         });
     }
     
-    function serveFile(path, isSucceed){
+    function serveFile(path, req, res, isSucceed){
         return new Promise(function(fulfill, reject){
-
+            console.log(path);
+            removeSlashPath=path.substring(0,path.length-1);
+            send(req, removeSlashPath, function(err){
                 if (err) reject(err);
                 else fulfill(isFile);
+            }).pipe(res);
         });
     }
 
@@ -57,11 +74,13 @@ module.exports = function(app, fs)
 
     app.get('/files/*',function(req,res){
         // /files/first/second/... -> need to split '/files/'
-        var url = req.url.substr(7)
+        var url = req.url.substr(7);
         var path = './'+url;
-        isDirectory(path).then(function(isDir){
-            if (isDir === false){
-                serveFile()
+        var isSucceed;
+        console.log(path);
+        isDirectory(path).then(function(isFile){
+            if (isFile === true){
+                serveFile(path, req, res, isSucceed);
             } else {
                 listFiles(path).then(function(items){
                     return res.render('index', {

@@ -36,9 +36,12 @@
 
   </head>
   <body>
-    <div class="ui main text container">
-      <h1>MangoShare</h1>
-      <p>Mini file-sharing server</p>
+    <div id="title_part" class="ui main text container">
+      <h1 id="page_title">MangoShare</h1>
+      <p id="page_subtitle">Mini file-sharing server</p>
+      <h5 id="server_settings" class="ui icon header">
+        <i class="settings icon"></i>
+      </h4>
     </div>
     <!--ui main text container-->
     <div class="ui borderless main menu">
@@ -93,7 +96,7 @@
                     <i class="folder icon"></i>
                 </div>
                 <div class="ui segment file_name">
-                    <a href="./<%= item[i] %>">
+                    <a href="./<%= item[i] %>/">
                     <%= item[i] %>
                     </a>
                 </div>
